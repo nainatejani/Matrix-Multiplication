@@ -1,7 +1,4 @@
-import time
-
 #Given two n*n matrices, multiply them using the standard method. Assume matrices are represented as a list of lists.
-
 def standard_mult(A, B):
     n = len(A)
     resulting_matrix = []
@@ -14,16 +11,15 @@ def standard_mult(A, B):
             resulting_matrix[i].append(value)
     return resulting_matrix
 
+# print(standard_mult([[1,2,3], [4,5,6], [7,8,9]], [[2,2,2],[2,1,2],[1,1,1]] ))
+
 
 #Helper Functions
 
 #Given a matrix, returns a list of quadrants with the leftmost element being the quadrant in the first row and column of the matrix
 #and the rightmost being the quadrant in the last row and column of the matrix.
 def matrixIntoQuadrants(A):
-
-    # the int rounds down
-    size_of_quadrant = int(len(A)/2)
-
+    size_of_quadrant = len(A)/2
     quadrant1 = []
     quadrant2 = []
     quadrant3 = []
@@ -47,7 +43,7 @@ def matrix_add(A, B):
 
     return matrix
 
-# print(matrix_add([[2,3, 1,2], [1,2,2,1], [5,4,1,2], [1,2,3,1]], [[2,3, 1,2], [1,2,2,1], [5,4,1,2], [1,2,3,1]]))
+# print(matrix_add([[2]], [[3]]))
 
 def matrix_subtract(A, B):
     length = len(A)
@@ -59,7 +55,6 @@ def matrix_subtract(A, B):
 
     return matrix
 
-
 def combineQuadrants(A, B, C, D):
     length = len(A)
     for i in range(length):
@@ -69,7 +64,7 @@ def combineQuadrants(A, B, C, D):
 
     return A
 
-# print(combineQuadrants([[1,2],[3,4]], [[5,6],[7,8]], [[9,10],[11,12]], [[13,14],[15,16]]))
+print(combineQuadrants([[1,2],[3,4]], [[5,6],[7,8]], [[9,10],[11,12]], [[13,14],[15,16]]))
 
 
 #Given two matrices, multiply them using the strassen method. 
@@ -95,42 +90,6 @@ def strassen_mult(M, N):
 
     return(combineQuadrants(matA, matB, matC, matD))
 
-# print(strassen_mult([[2,3],[3,4]], [[2,3],[3,4]]))
-a = 128
-L =  range(1,a+1)
-A = [L]*(a)
 
-
-start = time.time()
-print(standard_mult(A, A)[0])
-end = time.time()
-print(end - start)
-
-timeMult = 0.0252149105072
-
-timeStrassen = 0.67314696312
-
-result = timeMult - timeStrassen
-print(result)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(strassen_mult([[1,2, 3,4],[1,2, 3,4], [1,2, 3,4],[1,2, 3,4]], [[1,2, 3,4],[1,2, 3,4],[1,2, 3,4],[1,2, 3,4]]))
+    
