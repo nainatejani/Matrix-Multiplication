@@ -1,4 +1,5 @@
 import time
+import random
 
 #Given two n*n matrices, multiply them using the standard method. Assume matrices are represented as a list of lists.
 
@@ -13,7 +14,12 @@ def standard_mult(A, B):
                 value += A[i][k] * B[k][j]
             resulting_matrix[i].append(value)
     return resulting_matrix
-
+small =  [[0,1,1], [1,0,1],[1,1,0]]
+res1 = standard_mult(small, small)
+# print(standard_mult(res1, small))
+A = [[0,1,1,1], [1,0,1,0],[1,1,0,1],[1,0,1,0]]
+res = standard_mult(A, A)
+# print(standard_mult(res, A))
 
 #Helper Functions
 
@@ -95,23 +101,67 @@ def strassen_mult(M, N):
 
     return(combineQuadrants(matA, matB, matC, matD))
 
+
+
+def weighted_choice(p):
+    probs = [1-p, p]
+    r = random.random()
+    index = 0
+    while(r >= 0 and index < len(probs)):
+      r -= probs[index]
+      index += 1
+    return index - 1
+# print(weighted_choice(0.5))
+
+
+def generateRandomMatrix(n, p):
+    seq = [0,1]
+    weights = [p-1, p]
+    matrix = []
+    for i in range(n):
+        matrix.append([0]*n)
+    j = 1
+    for i in range(n):
+        for k in range(j):
+            randElmt = weighted_choice(0.5)
+            matrix[i][k] = randElmt
+            matrix[k][i] = randElmt
+        j+=1
+    return matrix
+
+# print(generateRandomMatrix(1024,0.2))
+
+def numTriangles(p):
+    A = generateRandomMatrix(1024,p)
+    intermediateRes = standard_mult(A, A)
+    result = standard_mult(A, intermediateRes)
+    addDiagonals = 0
+    for i in range(1024):
+        addDiagonals += result[i][i]
+
+    return addDiagonals/6
+
+print(numTriangles(0.01))
+
+
+
 # print(strassen_mult([[2,3],[3,4]], [[2,3],[3,4]]))
-a = 128
+a = 1024
 L =  range(1,a+1)
 A = [L]*(a)
 
 
 start = time.time()
-print(standard_mult(A, A)[0])
+# print(standard_mult(A, A)[0])
 end = time.time()
-print(end - start)
+# print(end - start)
 
 timeMult = 0.0252149105072
 
 timeStrassen = 0.67314696312
 
 result = timeMult - timeStrassen
-print(result)
+# print(result)
 
 
 
