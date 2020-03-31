@@ -80,8 +80,22 @@ def combineQuadrants(A, B, C, D):
 
 #Given two matrices, multiply them using the strassen method. 
 def strassen_mult(M, N):
-    if len(M) == 1:
+    length = len(M)
+    if length == 1:
         return [[M[0][0]*N[0][0]]]
+
+    if length % 2 == 1 and length > 1:
+        M.append([0]* length)
+        N.append([0]*length)
+        length += 1
+        for i in range(length):
+            M[i].append(0)
+            N[i].append(0)
+
+    if length <= 17:
+        return standard_mult(M,N)
+
+
 
     A, B, C, D = matrixIntoQuadrants(M)
     E, F, G, H = matrixIntoQuadrants(N)
@@ -141,20 +155,22 @@ def numTriangles(p):
 
     return addDiagonals/6
 
-print(numTriangles(0.01))
+# print(numTriangles(0.01))
 
 
 
 # print(strassen_mult([[2,3],[3,4]], [[2,3],[3,4]]))
-a = 1024
+a = 100
 L =  range(1,a+1)
-A = [L]*(a)
+A = [L[:] for _ in range(a)]
+B = [L[:] for _ in range(a)]
+
 
 
 start = time.time()
-# print(standard_mult(A, A)[0])
+strassen_mult(A, B)
 end = time.time()
-# print(end - start)
+print(end - start)
 
 timeMult = 0.0252149105072
 
