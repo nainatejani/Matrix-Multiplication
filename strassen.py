@@ -223,36 +223,3 @@ B = [L[:] for _ in range(a)]
 #     standard_mult(A, B)
 #     end = time.time()
 #     r1 = end - start
-#     sumof +=r1
-# print(sumof/30)
-
-
-
-timeMult = 0.0252149105072
-
-timeStrassen = 0.67314696312
-
-result = timeMult - timeStrassen
-# print(result)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
