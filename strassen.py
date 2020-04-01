@@ -1,4 +1,5 @@
 from __future__ import division
+from __future__ import print_function
 import math
 import time
 import random
@@ -75,8 +76,8 @@ def combineQuadrants(A, B, C, D):
 
 # print(combineQuadrants([[1,2],[1,2]], [[3],[3]], [[1,2]], [[3]]))
 
-#n is the desired matrix we want to achieve after padding
-#this function is only functional for a certain n value with respect to the matrix provided.
+# n is the desired matrix we want to achieve after padding
+# This function is only functional for a certain n value with respect to the matrix provided.
 def pad(M, n):
     length = len(M)
 
@@ -109,8 +110,6 @@ def unpad(A, i):
             del A[k][-1]
         del A[-1]
     return A
-# print(unpad([[1,0],[0,0]], 3))
-
 
 
 #Given two matrices, multiply them using the strassen method. 
@@ -161,7 +160,6 @@ def strassen_mult(M, N):
         matD = unpad(matD, 4)
 
     result = combineQuadrants(matA, matB, matC, matD)
-    # print(str(result) +"result")
 
     return result
 
@@ -174,8 +172,6 @@ def weighted_choice(p):
       r -= probs[index]
       index += 1
     return index - 1
-# print(weighted_choice(0.5))
-
 
 def generateRandomMatrix(n, p):
     seq = [0,1]
@@ -195,7 +191,6 @@ def generateRandomMatrix(n, p):
         j+=1
     return matrix
 
-# print(generateRandomMatrix(1024,0.2))
 
 def numTriangles(p):
     A = generateRandomMatrix(1024,p)
@@ -207,19 +202,60 @@ def numTriangles(p):
 
     return addDiagonals/6
 
-print(numTriangles(0.04))
+import sys
+
+def output(A):
+    length = len(A)
+
+    for i in range(length):
+        for j in range(i):
+            print (" ", end = " ")
+        print(A[i][i]) 
+
+if __name__ == "__main__":
+    matrixA = []
+    matrixB = []
+    with open(sys.argv[3], 'r') as file:
+        dimension = int(sys.argv[2])
+        matrix = []
+        for line in file.readlines(): 
+            line = int(line)
+            matrix.append(line)
+
+
+    for i in range(dimension):
+        matrixA.append([])
+        matrixB.append([])
+    n = dimension
+    for i in range(dimension):
+        matrixA[i].extend(matrix[dimension*i:n])
+        n+=dimension
+
+    for i in range(dimension):
+        j = i + dimension
+        matrixB[i].extend(matrix[dimension*j:n])
+        n+=dimension
+
+    result = strassen_mult(matrixA, matrixB)
+    output(result)
 
 
 
-# print(strassen_mult([[2,3],[3,4]], [[2,3],[3,4]]))
-a = 194
-L =  range(1,a+1)
-A = [L[:] for _ in range(a)]
-B = [L[:] for _ in range(a)]
 
-# sumof = 0
-# for i in range(30):
-#     start = time.time()
-#     standard_mult(A, B)
-#     end = time.time()
-#     r1 = end - start
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
